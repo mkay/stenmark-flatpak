@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stenmark — Flatpak repository</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #fafafa;
+    --fg: #1c1c1c;
+    --muted: #5c5c5c;
+    --rule: #e0e0e0;
+    --code-bg: #f0f0ef;
+    --accent: #1c71d8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1a1f22;
+      --fg: #e8e6e3;
+      --muted: #9a9996;
+      --rule: #2f3538;
+      --code-bg: #24292b;
+      --accent: #78aeed;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 3rem 1.25rem 5rem;
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/1.65 system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  main { max-width: 44rem; margin: 0 auto; }
+  header {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+  header img { width: 88px; height: 88px; flex: none; }
+  h1 { font-size: 1.9rem; margin: 0 0 .25rem; letter-spacing: -.02em; }
+  .tagline { color: var(--muted); margin: 0; font-size: 1.05rem; }
+  .links { margin: .7rem 0 0; font-size: .95rem; }
+  .links a { text-decoration: none; }
+  .links a:hover { text-decoration: underline; }
+  .links span { color: var(--rule); margin: 0 .55rem; }
+  figure { margin: 0 0 2.5rem; }
+  figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+  }
+  figcaption {
+    color: var(--muted);
+    font-size: .85rem;
+    text-align: center;
+    margin-top: .6rem;
+  }
+  @media (max-width: 32rem) {
+    header { flex-direction: column; align-items: flex-start; gap: .9rem; }
+    header img { width: 64px; height: 64px; }
+  }
+  h2 { font-size: 1.05rem; margin: 2.5rem 0 .75rem; letter-spacing: .01em; }
+  p { margin: 0 0 1rem; }
+  a { color: var(--accent); }
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: .9rem 1rem;
+    overflow-x: auto;
+    font-size: .875rem;
+    line-height: 1.5;
+    margin: 0 0 1rem;
+  }
+  code { font-family: ui-monospace, "Cascadia Code", Menlo, monospace; }
+  .note {
+    border-left: 3px solid var(--rule);
+    padding-left: 1rem;
+    color: var(--muted);
+    font-size: .925rem;
+  }
+  footer {
+    margin-top: 3.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    color: var(--muted);
+    font-size: .875rem;
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <img src="icon.svg" alt="" width="88" height="88">
+    <div>
+      <h1>Stenmark</h1>
+      <p class="tagline">Your markdown librarian. A GTK4 Markdown reader, organizer and editor.</p>
+      <p class="links">
+        <a href="https://singular.de/apps/stenmark/">Project page</a><span>·</span><a href="https://github.com/mkay/stenmark">Source &amp; issues</a>
+      </p>
+    </div>
+  </header>
+
+  <figure>
+    <img src="screenshot-view.png" alt="Stenmark showing a rendered Markdown document beside a folder sidebar." loading="lazy">
+    <figcaption>Reading a document, with the folder sidebar</figcaption>
+  </figure>
+
+  <p>
+    Stenmark is not on Flathub: their policy doesn't allow AI-assisted apps, and
+    Stenmark is. This is its own Flatpak repository instead — add it once as a
+    remote, and new versions arrive with <code>flatpak update</code> like any
+    other app.
+  </p>
+
+  <h2>Install</h2>
+<pre><code>flatpak remote-add --user stenmark https://mkay.github.io/stenmark-flatpak/stenmark.flatpakrepo
+flatpak install stenmark de.singular.stenmark</code></pre>
+
+  <h2>You also need Flathub</h2>
+  <p>
+    Only Stenmark itself is hosted here. The GNOME runtime it builds against
+    comes from Flathub, so that remote has to exist too:
+  </p>
+<pre><code>flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo</code></pre>
+
+  <figure>
+    <img src="screenshot-editor.png" alt="Stenmark's split-pane editor with a live preview beside the Markdown source." loading="lazy">
+    <figcaption>The split-pane editor with live preview</figcaption>
+  </figure>
+
+  <h2>What it may read</h2>
+  <p>
+    Stenmark browses whole folders rather than one file at a time, so the
+    sandbox grants it your home directory, plus <code>/media</code>,
+    <code>/run/media</code> and <code>/mnt</code> for notes that live on a USB
+    stick or a mounted share. It is granted no network access at all: files are
+    read and rendered locally, and a link you click is handed to the portal,
+    which opens it in your own browser outside the sandbox.
+  </p>
+
+  <h2>Signatures</h2>
+  <p>
+    Every commit and the repository summary are GPG-signed. The public key is
+    embedded in the <code>.flatpakrepo</code> file above, so <code>flatpak</code>
+    verifies each update against it — an unsigned or tampered object is refused.
+  </p>
+
+  <h2>What is actually served here</h2>
+  <p>
+    <code>repo/</code> is a static
+    <a href="https://ostreedev.github.io/ostree/">OSTree</a> repository in
+    <code>archive-z2</code> mode. Every file is stored once under the hash of its
+    contents, so successive releases share everything unchanged and a client
+    downloads only what it is missing.
+  </p>
+  <p class="note">
+    Debug symbols are not published — they roughly double the repository for
+    something no user of a binary remote consumes. Build from source if you need
+    them.
+  </p>
+
+  <footer>
+    <a href="https://singular.de/apps/stenmark/">singular.de/apps/stenmark</a> ·
+    <a href="https://github.com/mkay/stenmark">github.com/mkay/stenmark</a> ·
+    <a href="https://github.com/mkay/stenmark/issues">Report a bug</a><br>
+    Published from <code>build-aux/flatpak/publish-repo.sh</code> · GPL-3.0-only
+  </footer>
+</main>
+</body>
+</html>
