@@ -1,0 +1,8 @@
+[Flatpak Repo]
+Title=Stenmark
+Url=https://mkay.github.io/stenmark-flatpak/repo/
+Homepage=https://github.com/mkay/stenmark
+Comment=Your markdown librarian
+Description=A GTK4 Markdown reader, organizer and editor.
+Icon=https://mkay.github.io/stenmark-flatpak/icon.svg
+GPGKey=mDMEanYmZBYJKwYBBAHaRw8BAQdA5VnnD8wmXQSgDv9OYkup5gVUvuXjg4wulgwq1WUme5a0KVN0ZW5tYXJrIEZsYXRwYWsgU2lnbmluZyA8bWtAc2luZ3VsYXIuZGU+iJAEExYKADgWIQQr58bMcZxhMTBEV0UvS24cVYC/GAUCanYmZAIbAwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRAvS24cVYC/GEiUAP9d6pkO2H+R0+Da+lnT/eqiMpcMiLehHrix3niX+peMmQD/WaejqqMKP67/HPzImbPWD8JGB6HkF3IJEpxJBJdwkww=
